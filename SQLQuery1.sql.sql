@@ -100,6 +100,96 @@ CROSS JOIN
     Departments;
 
 
+--Count Employees in Each Department
+	SELECT 
+    Departments.DepartmentName,
+    COUNT(Employees.EmployeeID) AS EmployeeCount
+FROM 
+    Departments
+LEFT JOIN 
+    Employees
+ON 
+    Departments.DepartmentID = Employees.DepartmentID
+GROUP BY 
+    Departments.DepartmentName;
+
+--Find Employees with Salary Greater than $70,000
+SELECT 
+    Name,
+    Position,
+    Salary
+FROM 
+    Employees
+WHERE 
+    Salary > 70000;
+
+--Calculate Average Salary per Department
+
+SELECT 
+    Departments.DepartmentName,
+    AVG(Employees.Salary) AS AverageSalary
+FROM 
+    Employees
+INNER JOIN 
+    Departments
+ON 
+    Employees.DepartmentID = Departments.DepartmentID
+GROUP BY 
+    Departments.DepartmentName;
+
+--Find Departments with No Employees
+
+SELECT 
+    DepartmentName,
+    Location
+FROM 
+    Departments
+WHERE 
+    DepartmentID NOT IN (SELECT DISTINCT DepartmentID FROM Employees);
+
+--Find the Highest Paid Employee in Each Department
+
+SELECT 
+    Departments.DepartmentName,
+    Employees.Name AS EmployeeName,
+    MAX(Employees.Salary) AS MaxSalary
+FROM 
+    Employees
+INNER JOIN 
+    Departments
+ON 
+    Employees.DepartmentID = Departments.DepartmentID
+GROUP BY 
+    Departments.DepartmentName;
+
+--Get Employees by Age Group
+
+SELECT 
+    Name,
+    Age,
+    CASE 
+        WHEN Age < 30 THEN 'Under 30'
+        WHEN Age BETWEEN 30 AND 40 THEN '30-40'
+        ELSE 'Above 40'
+    END AS AgeGroup
+FROM 
+    Employees;
+
+--Order Employees by Salary (Descending)
+
+SELECT 
+    Name,
+    Position,
+    Salary
+FROM 
+    Employees
+ORDER BY 
+    Salary DESC;
+
+
+
+
+
 
 
 
